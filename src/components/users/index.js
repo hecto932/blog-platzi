@@ -8,6 +8,7 @@ class Users extends Component{
   componentDidMount () {
     this.props.getUsers();
   }
+
   createRows = () => {
     const { users } = this.props
     users.map(u => (
