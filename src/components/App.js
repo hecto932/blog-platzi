@@ -4,19 +4,24 @@ class App extends Component{
   constructor () {
     super();
     this.state = {
-      users: [
-        {
-          name: 'Hector',
-          email: 'hector@flores.com',
-          link: 'hectorflores.com'
-        },
-        {
-          name: 'Hector2',
-          email: 'hector2@flores.com',
-          link: 'hectorflores2.com'
-        }
-      ]
+      users: []
     }
+  }
+
+
+
+  async componentDidMount () {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users', { method: 'GET' })
+    const data = await response.json()
+    const users = data.map(u => ({
+      name: u.name,
+      email: u.email,
+      link: u.website
+    }))
+    console.log(data)
+    this.setState({
+      users
+    })
   }
   createRows = () => (
     this.state.users.map(u => (
@@ -27,6 +32,7 @@ class App extends Component{
       </tr>
     ))
   )
+
   render () {
     return (
       <div className="margin">
