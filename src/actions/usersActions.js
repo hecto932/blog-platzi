@@ -1,3 +1,4 @@
+import request from 'request-promise-native'
 import { FETCH_USERS, LOADING, ERROR } from '../types/usersTypes';
 
 export const getUsers = () => async dispatch => {
@@ -5,19 +6,21 @@ export const getUsers = () => async dispatch => {
     dispatch({
       type: LOADING
     })
-    const response = await fetch('https://jsonplaceholder.typicode.com/users', {
-      method: 'GET'
-    });
-    const users = await response.json();
+    const options = {
+      method: 'GET',
+      uri: `https://jsonplaceholder.typicode.com/users`,
+      json: true
+    }
+    const response = await request(options);
+
     dispatch({
       type: FETCH_USERS,
-      payload: users
+      payload: response
     });
   } catch (err) {
-    console.error(err.message)
     dispatch({
       type: ERROR,
-      payload: err.message
+      payload: `Request failed with statusCode ${err.statusCode}`,
     })
   }
 };

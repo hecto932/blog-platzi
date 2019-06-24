@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as usersActions from '../../actions/usersActions';
 
 import Spinner from '../General/Spinner';
+import Fatal from '../General/Fatal'
 
 class Users extends Component {
   componentDidMount() {
@@ -11,9 +12,15 @@ class Users extends Component {
   }
 
   createContent = () => {
-    if (this.props.isLoading) {
+    const { isLoading, error } = this.props
+    if (isLoading) {
       return <Spinner />;
     }
+
+    if (error) {
+      return <Fatal message={this.props.error} />
+    }
+
     return (
       <div className="margin">
         <table className="table">
@@ -42,7 +49,6 @@ class Users extends Component {
   };
 
   render() {
-    console.log(this.props.isLoading);
     return this.createContent();
   }
 }
