@@ -11,7 +11,7 @@ class Users extends Component{
 
   createRows = () => {
     const { users } = this.props
-    users.map(u => (
+    return users.map(u => (
       <tr key={u.id}>
         <td>{u.name}</td>
         <td>{u.email}</td>
