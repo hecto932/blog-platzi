@@ -21,6 +21,7 @@ class Users extends Component{
   }
 
   render () {
+    console.log(this.props.isLoading)
     return (
       <div className="margin">
         <table className="table">
