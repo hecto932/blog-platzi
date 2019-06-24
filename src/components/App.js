@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Users from './users';
+import Users from './Users';
 import Navbar from './Navbar'
-import Tasks from './tasks'
+import Tasks from './Tasks'
 
 const App = props => (
   <BrowserRouter>

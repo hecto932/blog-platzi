@@ -1,27 +1,19 @@
-import React, { Component } from "react";
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import * as usersActions from '../../actions/usersActions'
+import * as usersActions from '../../actions/usersActions';
 
-class Users extends Component{
+import Spinner from '../General/Spinner';
 
-  componentDidMount () {
+class Users extends Component {
+  componentDidMount() {
     this.props.getUsers();
   }
 
-  createRows = () => {
-    const { users } = this.props
-    return users.map(u => (
-      <tr key={u.id}>
-        <td>{u.name}</td>
-        <td>{u.email}</td>
-        <td>{u.website}</td>
-      </tr>
-    ))
-  }
-
-  render () {
-    console.log(this.props.isLoading)
+  createContent = () => {
+    if (this.props.isLoading) {
+      return <Spinner />;
+    }
     return (
       <div className="margin">
         <table className="table">
@@ -32,17 +24,34 @@ class Users extends Component{
               <th>website</th>
             </tr>
           </thead>
-          <tbody>
-            {this.createRows()}
-          </tbody>
+          <tbody>{this.createRows()}</tbody>
         </table>
       </div>
-    )
-  }
-};
+    );
+  };
 
-const mapStateToProps = (reducers) => {
-  return reducers.usersReducer
+  createRows = () => {
+    const { users } = this.props;
+    return users.map(u => (
+      <tr key={u.id}>
+        <td>{u.name}</td>
+        <td>{u.email}</td>
+        <td>{u.website}</td>
+      </tr>
+    ));
+  };
+
+  render() {
+    console.log(this.props.isLoading);
+    return this.createContent();
+  }
 }
 
-export default connect(mapStateToProps, usersActions)(Users);
+const mapStateToProps = reducers => {
+  return reducers.usersReducer;
+};
+
+export default connect(
+  mapStateToProps,
+  usersActions
+)(Users);
