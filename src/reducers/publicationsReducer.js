@@ -1,5 +1,5 @@
 import {
-  PUBLICATIONS_FETCH,
+  PUBLICATIONS_BY_USER,
   PUBLICATIONS_LOADING,
   PUBLICATIONS_ERROR
 } from '../types/publicationsTypes';
@@ -12,8 +12,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case PUBLICATIONS_FETCH:
-      return { ...state, publications: action.payload, isLoading: false }
+    case PUBLICATIONS_BY_USER:
+      return { ...state, publications: action.payload, isLoading: false, error: null }
     case PUBLICATIONS_LOADING:
       return { ...state, isLoading: true }
     case PUBLICATIONS_ERROR:

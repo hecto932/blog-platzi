@@ -3,45 +3,36 @@ import request from 'request-promise-native';
 import {
   PUBLICATIONS_FETCH,
   PUBLICATIONS_LOADING,
-  PUBLICATIONS_ERROR
+  PUBLICATIONS_ERROR,
+  PUBLICATIONS_BY_USER
 } from '../types/publicationsTypes';
 
-export const getPublications = () => async dispatch => {
-  try {
-    dispatch({
-      type: PUBLICATIONS_LOADING
-    });
-    const response = await request({
-      method: 'GET',
-      uri: `https://jsonplaceholder.typicode.com/posts`,
-      json: true
-    });
-    dispatch({
-      type: PUBLICATIONS_FETCH,
-      payload: response,
-      error: null
-    });
-  } catch (err) {
-    console.log(`Error: ${err.message}`);
-    dispatch({
-      type: PUBLICATIONS_ERROR
-    });
-  }
-};
 
 export const getPublicationsByUser = (userIndex) => async (dispatch, getState) => {
   try {
+    dispatch({
+      type: PUBLICATIONS_LOADING
+    })
     const { users } = getState().usersReducer
+    const { publications } = getState().publicationsReducer
     const userId = users[userIndex].id
+
     const response = await request({
       url: `https://jsonplaceholder.typicode.com/posts?userId=${userId}`,
       method: 'GET',
       json: true
     });
 
+    console.log(`publications`, publications)
+    console.log(`response`, response)
+    const newPublications = [
+      ...publications,
+      response
+    ]
+
     dispatch({
-      type: PUBLICATIONS_FETCH,
-      payload: response
+      type: PUBLICATIONS_BY_USER,
+      payload: newPublications
     });
   } catch (err) {
     console.log(`Error: ${err.message}`);

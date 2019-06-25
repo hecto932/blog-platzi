@@ -10,7 +10,7 @@ export default (state = INITIAL_STATE, action) => {
   // eslint-disable-next-line default-case
   switch (action.type) {
     case USERS_FETCH:
-      return { ...state, users: action.payload, isLoading: false };
+      return { ...state, users: action.payload, isLoading: false, error: null };
     case USERS_LOADING:
       return { ...state, isLoading: true };
     case USERS_ERROR:
