@@ -15,7 +15,8 @@ export const getUsers = () => async dispatch => {
 
     dispatch({
       type: USERS_FETCH,
-      payload: response
+      payload: response,
+      error: null
     });
   } catch (err) {
     dispatch({

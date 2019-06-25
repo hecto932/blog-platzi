@@ -5,11 +5,13 @@ import * as usersActions from '../../actions/usersActions'
 import * as publicationsActions from '../../actions/publicationsActions'
 
 class Publications extends Component {
-  componentDidMount() {
+  async componentDidMount() {
+    const { key:userId } = this.props.match.params
     const { users } = this.props.usersReducer
     if (!users.length) {
-      this.props.getUsers()
+      await this.props.getUsers()
     }
+    this.props.getPublicationsByUser(userId)
   }
   render () {
     console.log(this.props)
