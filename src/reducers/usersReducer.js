@@ -1,4 +1,4 @@
-import { FETCH_USERS, LOADING, ERROR } from '../types/usersTypes';
+import { USERS_FETCH, USERS_LOADING, USERS_ERROR } from '../types/usersTypes';
 
 const INITIAL_STATE = {
   users: [],
@@ -9,11 +9,11 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   // eslint-disable-next-line default-case
   switch (action.type) {
-    case FETCH_USERS:
+    case USERS_FETCH:
       return { ...state, users: action.payload, isLoading: false };
-    case LOADING:
+    case USERS_LOADING:
       return { ...state, isLoading: true };
-    case ERROR:
+    case USERS_ERROR:
       return { ...state, error: action.payload, isLoading: false };
     default:
       return state;

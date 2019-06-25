@@ -1,3 +1,3 @@
-export const FETCH_USERS = 'FETCH_USERS'
-export const LOADING = 'LOADING'
-export const ERROR = 'ERROR'
+export const USERS_FETCH = 'USERS_FETCH'
+export const USERS_LOADING = 'USERS_LOADING'
+export const USERS_ERROR = 'USERS_ERROR'

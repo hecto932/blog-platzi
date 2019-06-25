@@ -1,26 +1,26 @@
-import request from 'request-promise-native'
-import { FETCH_USERS, LOADING, ERROR } from '../types/usersTypes';
+import request from 'request-promise-native';
+import { USERS_FETCH, USERS_LOADING, USERS_ERROR } from '../types/usersTypes';
 
 export const getUsers = () => async dispatch => {
   try {
     dispatch({
-      type: LOADING
-    })
+      type: USERS_LOADING
+    });
     const options = {
       method: 'GET',
       uri: `https://jsonplaceholder.typicode.com/users`,
       json: true
-    }
+    };
     const response = await request(options);
 
     dispatch({
-      type: FETCH_USERS,
+      type: USERS_FETCH,
       payload: response
     });
   } catch (err) {
     dispatch({
-      type: ERROR,
-      payload: `Request failed with statusCode ${err.statusCode}`,
-    })
+      type: USERS_ERROR,
+      payload: `Request failed with statusCode ${err.statusCode}`
+    });
   }
 };
