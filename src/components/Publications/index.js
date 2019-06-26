@@ -102,7 +102,9 @@ class Publications extends Component {
 
   showComments = (pub_key, com_key, comments) => {
     this.props.openClose(pub_key, com_key)
-    this.props.getComments(pub_key, com_key)
+    if (!comments.length) {
+      this.props.getComments(pub_key, com_key)
+    }
   }
 
   render() {

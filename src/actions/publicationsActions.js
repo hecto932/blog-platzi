@@ -82,6 +82,38 @@ export const openClose = (pub_key, com_key) => (dispatch, getState) => {
   })
 }
 
-export const getComments = (pub_key, com_key) => (dispatch, getState) => {
-  
+export const getComments = (pub_key, com_key) => async (dispatch, getState) => {
+  const { publications } = getState().publicationsReducer
+  const selectedPublication = publications[pub_key][com_key]
+
+  try {
+    const response = await request({
+      url: `https://jsonplaceholder.typicode.com/comments?postId=${selectedPublication.id}`,
+      method: 'GET',
+      json: true
+    });
+
+    const updated = {
+      ...selectedPublication,
+      comments: response
+    }
+
+    const publicationsUpdate = [...publications]
+    publicationsUpdate[pub_key] = [
+      ...publications[pub_key]
+    ]
+    publicationsUpdate[pub_key][com_key] = updated
+
+    dispatch({
+      type: PUBLICATIONS_UPDATE,
+      payload: publicationsUpdate
+    })
+
+  } catch (err) {
+    console.log(`Error: ${err.message}`);
+    dispatch({
+      type: PUBLICATIONS_ERROR,
+      payload: `Comments no available`
+    });
+  }
 }
