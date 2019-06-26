@@ -6,6 +6,7 @@ import {
   PUBLICATIONS_ERROR,
   PUBLICATIONS_BY_USER
 } from '../types/publicationsTypes';
+import { USERS_FETCH } from '../types/usersTypes'
 
 
 export const getPublicationsByUser = (userIndex) => async (dispatch, getState) => {
@@ -29,6 +30,18 @@ export const getPublicationsByUser = (userIndex) => async (dispatch, getState) =
       ...publications,
       response
     ]
+
+    const lastPublicationKey = newPublications.length - 1
+    const usersUpdates = [...users]
+    usersUpdates[userIndex] = {
+      ...users[userIndex],
+      lastPublicationKey
+    }
+
+    dispatch({
+      type: USERS_FETCH,
+      payload: usersUpdates
+    })
 
     dispatch({
       type: PUBLICATIONS_BY_USER,
