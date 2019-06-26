@@ -43,6 +43,51 @@ class Publications extends Component {
     )
   }
 
+  handlePublications = () => {
+    const {
+      usersReducer,
+      usersReducer: { users },
+      publicationsReducer,
+      publicationsReducer: { publications },
+      match: { params: { key } }
+    } = this.props
+
+    if (!users.length) {
+      return;
+    }
+
+    if (usersReducer.error) {
+      return;
+    }
+
+    if (publicationsReducer.isLoading) {
+      return <Spinner />
+    }
+
+    if (publicationsReducer.error) {
+      return <Fatal message={publicationsReducer.error} />
+    }
+
+    if (!publications.length) {
+      return;
+    }
+
+    if (!('lastPublicationKey' in users[key])) {
+      return;
+    }
+
+    const { lastPublicationKey } = users[key]
+
+    return publications[lastPublicationKey].map((publication) => {
+      return (
+        <div className="pub_title">
+          <h2>{publication.title}</h2>
+          <h3>{publication.body}</h3>
+        </div>
+      )
+    })
+  }
+
 
   render () {
     console.log(this.props)
@@ -50,7 +95,7 @@ class Publications extends Component {
     return (
       <div className="margin">
         { this.handleCreateUser() }
-        { key }
+        { this.handlePublications() }
       </div>
     )
   }
