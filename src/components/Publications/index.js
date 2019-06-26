@@ -83,15 +83,18 @@ class Publications extends Component {
     return this.showInfo(publications[lastPublicationKey], lastPublicationKey)
   };
 
-  showInfo = (publications, lastPublicationKey) => (
-    publications.map((publication, index) => (
+  showInfo = (publications, pub_key) => (
+    publications.map((publication, com_key) => (
       <div
         className="pub_title"
         key={publication.id}
-        onClick={() => this.props.openClose(lastPublicationKey, index) }
+        onClick={() => this.props.openClose(pub_key, com_key) }
       >
         <h2>{publication.title}</h2>
         <h3>{publication.body}</h3>
+        {
+          (publication.open) ? 'open' : 'close'
+        }
       </div>
     ))
   )

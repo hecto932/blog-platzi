@@ -4,7 +4,7 @@ import {
   PUBLICATIONS_LOADING,
   PUBLICATIONS_ERROR,
   PUBLICATIONS_BY_USER,
-  PUBLICATIONS_OPEN_CLOSE
+  PUBLICATIONS_UPDATE
 } from '../types/publicationsTypes';
 import { USERS_FETCH } from '../types/usersTypes'
 
@@ -60,6 +60,24 @@ export const getPublicationsByUser = (userIndex) => async (dispatch, getState) =
   }
 };
 
-export const openClose = (pub_key, com_key) => (dispatch) => {
-  console.log(pub_key, com_key)
+export const openClose = (pub_key, com_key) => (dispatch, getState) => {
+  console.log(`publicationsActions: ${pub_key} ${com_key}`)
+  const { publications } = getState().publicationsReducer
+  const selectedPublication = publications[pub_key][com_key]
+
+  const updated = {
+    ...selectedPublication,
+    open: !selectedPublication.open
+  }
+
+  const publicationsUpdate = [...publications]
+  publicationsUpdate[pub_key] = [
+    ...publications[pub_key]
+  ]
+  publicationsUpdate[pub_key][com_key] = updated
+
+  dispatch({
+    type: PUBLICATIONS_UPDATE,
+    payload: publicationsUpdate
+  })
 }
