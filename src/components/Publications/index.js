@@ -80,17 +80,21 @@ class Publications extends Component {
 
     const { lastPublicationKey } = users[key];
 
-    return publications[lastPublicationKey].map(publication => (
+    return this.showInfo(publications[lastPublicationKey], lastPublicationKey)
+  };
+
+  showInfo = (publications, lastPublicationKey) => (
+    publications.map((publication, index) => (
       <div
         className="pub_title"
         key={publication.id}
-        onClick={() => alert(publication.id)}
+        onClick={() => this.props.openClose(lastPublicationKey, index) }
       >
         <h2>{publication.title}</h2>
         <h3>{publication.body}</h3>
       </div>
-    ));
-  };
+    ))
+  )
 
   render() {
     console.log(this.props);

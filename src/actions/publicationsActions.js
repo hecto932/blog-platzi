@@ -3,7 +3,8 @@ import request from 'request-promise-native';
 import {
   PUBLICATIONS_LOADING,
   PUBLICATIONS_ERROR,
-  PUBLICATIONS_BY_USER
+  PUBLICATIONS_BY_USER,
+  PUBLICATIONS_OPEN_CLOSE
 } from '../types/publicationsTypes';
 import { USERS_FETCH } from '../types/usersTypes'
 
@@ -23,9 +24,15 @@ export const getPublicationsByUser = (userIndex) => async (dispatch, getState) =
       json: true
     });
 
+    const newReponse = response.map((publication) => ({
+      ...publication,
+      comments: [],
+      open: false
+    }))
+
     const newPublications = [
       ...publications,
-      response
+      newReponse
     ]
 
     dispatch({
@@ -52,3 +59,7 @@ export const getPublicationsByUser = (userIndex) => async (dispatch, getState) =
     });
   }
 };
+
+export const openClose = (pub_key, com_key) => (dispatch) => {
+  console.log(pub_key, com_key)
+}
