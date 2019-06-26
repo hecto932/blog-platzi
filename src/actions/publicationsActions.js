@@ -81,3 +81,7 @@ export const openClose = (pub_key, com_key) => (dispatch, getState) => {
     payload: publicationsUpdate
   })
 }
+
+export const getComments = (pub_key, com_key) => (dispatch, getState) => {
+  
+}

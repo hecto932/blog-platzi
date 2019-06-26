@@ -6,6 +6,7 @@ import * as publicationsActions from '../../actions/publicationsActions';
 
 import Spinner from '../General/Spinner';
 import Fatal from '../General/Fatal';
+import Comments from './Comments'
 
 class Publications extends Component {
   async componentDidMount() {
@@ -88,16 +89,21 @@ class Publications extends Component {
       <div
         className="pub_title"
         key={publication.id}
-        onClick={() => this.props.openClose(pub_key, com_key) }
+        onClick={() => this.showComments(pub_key, com_key, publications.comments) }
       >
         <h2>{publication.title}</h2>
         <h3>{publication.body}</h3>
         {
-          (publication.open) ? 'open' : 'close'
+          (publication.open) ? <Comments /> : ''
         }
       </div>
     ))
   )
+
+  showComments = (pub_key, com_key, comments) => {
+    this.props.openClose(pub_key, com_key)
+    this.props.getComments(pub_key, com_key)
+  }
 
   render() {
     console.log(this.props);
