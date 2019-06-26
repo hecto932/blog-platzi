@@ -1,7 +1,6 @@
 import request from 'request-promise-native';
 
 import {
-  PUBLICATIONS_FETCH,
   PUBLICATIONS_LOADING,
   PUBLICATIONS_ERROR,
   PUBLICATIONS_BY_USER
@@ -24,12 +23,15 @@ export const getPublicationsByUser = (userIndex) => async (dispatch, getState) =
       json: true
     });
 
-    console.log(`publications`, publications)
-    console.log(`response`, response)
     const newPublications = [
       ...publications,
       response
     ]
+
+    dispatch({
+      type: PUBLICATIONS_BY_USER,
+      payload: newPublications
+    });
 
     const lastPublicationKey = newPublications.length - 1
     const usersUpdates = [...users]
@@ -42,15 +44,11 @@ export const getPublicationsByUser = (userIndex) => async (dispatch, getState) =
       type: USERS_FETCH,
       payload: usersUpdates
     })
-
-    dispatch({
-      type: PUBLICATIONS_BY_USER,
-      payload: newPublications
-    });
   } catch (err) {
     console.log(`Error: ${err.message}`);
     dispatch({
-      type: PUBLICATIONS_ERROR
+      type: PUBLICATIONS_ERROR,
+      payload: `Publications no available`
     });
   }
 };

@@ -17,7 +17,7 @@ export default (state = INITIAL_STATE, action) => {
     case PUBLICATIONS_LOADING:
       return { ...state, isLoading: true }
     case PUBLICATIONS_ERROR:
-      return { ...state, error: action.payload }
+      return { ...state, error: action.payload, isLoading: false }
     default:
       return state;
   }

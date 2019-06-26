@@ -20,7 +20,7 @@ export const getUsers = () => async dispatch => {
   } catch (err) {
     dispatch({
       type: USERS_ERROR,
-      payload: `Request failed with statusCode ${err.statusCode}`
+      payload: `User information no available`
     });
   }
 };
