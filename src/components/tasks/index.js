@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import * as tasksActions from '../../actions/tasksActions'
 import Spinner from '../General/Spinner';
@@ -51,10 +52,9 @@ class Tasks extends Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <div className="margin">
-        Tareas saludar
+        <button><Link to="/tasks/save">Add task</Link></button>
         {this.showContent()}
       </div>
     )
