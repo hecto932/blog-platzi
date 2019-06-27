@@ -13,9 +13,19 @@ export const getTasks = () => async (dispatch) => {
       json: true
     })
 
+    const tasks = {}
+    response.map((task) => (
+      tasks[task.userId] = {
+        ...tasks[task.userId],
+        [task.id]: {
+          ...task
+        }
+      }
+    ))
+
     dispatch({
       type: TASKS_FETCH,
-      payload: response
+      payload: tasks
     })
   } catch (err) {
     console.log(`Error - ${err.message}`)
