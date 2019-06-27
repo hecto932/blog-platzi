@@ -89,12 +89,12 @@ class Publications extends Component {
       <div
         className="pub_title"
         key={publication.id}
-        onClick={() => this.showComments(pub_key, com_key, publications.comments) }
+        onClick={() => this.showComments(pub_key, com_key, publication.comments) }
       >
         <h2>{publication.title}</h2>
         <h3>{publication.body}</h3>
         {
-          (publication.open) ? <Comments /> : ''
+          (publication.open) ? <Comments comments={publication.comments}/> : ''
         }
       </div>
     ))
@@ -102,7 +102,7 @@ class Publications extends Component {
 
   showComments = (pub_key, com_key, comments) => {
     this.props.openClose(pub_key, com_key)
-    if (!comments.length) {
+    if (!(comments.length)) {
       this.props.getComments(pub_key, com_key)
     }
   }

@@ -4,7 +4,9 @@ import {
   PUBLICATIONS_LOADING,
   PUBLICATIONS_ERROR,
   PUBLICATIONS_BY_USER,
-  PUBLICATIONS_UPDATE
+  PUBLICATIONS_UPDATE,
+  PUBLICATIONS_COMMENTS_LOADING,
+  PUBLICATIONS_COMMENTS_ERROR
 } from '../types/publicationsTypes';
 import { USERS_FETCH } from '../types/usersTypes'
 
@@ -86,6 +88,10 @@ export const getComments = (pub_key, com_key) => async (dispatch, getState) => {
   const { publications } = getState().publicationsReducer
   const selectedPublication = publications[pub_key][com_key]
 
+  dispatch({
+    type: PUBLICATIONS_COMMENTS_LOADING
+  })
+
   try {
     const response = await request({
       url: `https://jsonplaceholder.typicode.com/comments?postId=${selectedPublication.id}`,
@@ -112,8 +118,8 @@ export const getComments = (pub_key, com_key) => async (dispatch, getState) => {
   } catch (err) {
     console.log(`Error: ${err.message}`);
     dispatch({
-      type: PUBLICATIONS_ERROR,
-      payload: `Comments no available`
-    });
+      type: PUBLICATIONS_COMMENTS_ERROR,
+      payload: `Comments unavailable`
+    })
   }
 }
