@@ -67,7 +67,7 @@ export const addTask = (task) => async (dispatch) => {
   try {
     console.log(task)
     const response = await request({
-      uri: `https://jsonplaceholder.typicode.com/todoss`,
+      uri: `https://jsonplaceholder.typicode.com/todos`,
       method: 'POST',
       body: task,
       json: true

@@ -12,13 +12,14 @@ const INITIAL_STATE = {
   error: null,
   isLoading: false,
   user_id: null,
-  title: null
+  title: null,
+  redirect: false
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TASKS_FETCH:
-      return { ...state, tasks: action.payload, isLoading: false, error: null };
+      return { ...state, tasks: action.payload, isLoading: false, error: null, redirect: false };
     case TASKS_LOADING:
       return { ...state, isLoading: true };
     case TASKS_ERROR:
@@ -28,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
     case TASKS_CHANGE_TITLE:
       return { ...state, title: action.payload };
     case TASKS_ADD:
-      return { ...state, tasks: {}, isLoading: false, error: null }
+      return { ...state, tasks: {}, isLoading: false, error: null, redirect: true }
     default:
       return state;
   }

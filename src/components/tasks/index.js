@@ -9,7 +9,7 @@ import Fatal from '../General/Fatal';
 class Tasks extends Component {
 
   componentDidMount() {
-    if (Object.keys(this.props.tasks).length) {
+    if (!Object.keys(this.props.tasks).length) {
       this.props.getTasks()
     }
   }
