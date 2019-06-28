@@ -9,7 +9,9 @@ import Fatal from '../General/Fatal';
 class Tasks extends Component {
 
   componentDidMount() {
-    this.props.getTasks()
+    if (Object.keys(this.props.tasks).length) {
+      this.props.getTasks()
+    }
   }
 
   showContent = () => {
@@ -52,6 +54,8 @@ class Tasks extends Component {
   }
 
   render () {
+    const { title, user_id, isLoading } = this.props
+    console.log(title, user_id, isLoading)
     return (
       <div className="margin">
         <button><Link to="/tasks/save">Add task</Link></button>

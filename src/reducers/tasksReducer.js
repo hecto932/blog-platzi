@@ -3,15 +3,16 @@ import {
   TASKS_ERROR,
   TASKS_LOADING,
   TASKS_CHANGE_USER_ID,
-  TASKS_CHANGE_TITLE
+  TASKS_CHANGE_TITLE,
+  TASKS_ADD
 } from '../types/tasksTypes';
 
 const INITIAL_STATE = {
   tasks: {},
   error: null,
   isLoading: false,
-  user_id: 1,
-  title: 'placeholder title'
+  user_id: null,
+  title: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -25,7 +26,9 @@ export default (state = INITIAL_STATE, action) => {
     case TASKS_CHANGE_USER_ID:
       return { ...state, user_id: action.payload };
     case TASKS_CHANGE_TITLE:
-      return { ...state, user_id: action.payload };
+      return { ...state, title: action.payload };
+    case TASKS_ADD:
+      return { ...state, tasks: {}, isLoading: false, error: null }
     default:
       return state;
   }

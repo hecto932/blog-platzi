@@ -4,7 +4,8 @@ import {
   TASKS_LOADING,
   TASKS_ERROR,
   TASKS_CHANGE_USER_ID,
-  TASKS_CHANGE_TITLE
+  TASKS_CHANGE_TITLE,
+  TASKS_ADD
 } from '../types/tasksTypes';
 
 export const getTasks = () => async dispatch => {
@@ -44,7 +45,6 @@ export const getTasks = () => async dispatch => {
 };
 
 export const changeUserId = userId => dispatch => {
-  console.log(`changeUserId`);
   dispatch({
     type: TASKS_CHANGE_USER_ID,
     payload: userId
@@ -52,9 +52,37 @@ export const changeUserId = userId => dispatch => {
 };
 
 export const changeTitle = title => dispatch => {
-  console.log(`changeTitle`);
   dispatch({
     type: TASKS_CHANGE_TITLE,
     payload: title
   });
 };
+
+export const addTask = (task) => async (dispatch) => {
+
+  dispatch({
+    type: TASKS_LOADING
+  })
+
+  try {
+    console.log(task)
+    const response = await request({
+      uri: `https://jsonplaceholder.typicode.com/todoss`,
+      method: 'POST',
+      body: task,
+      json: true
+    })
+
+    console.log(response)
+
+    dispatch({
+      type: TASKS_ADD
+    })
+  } catch (err) {
+    console.log(`Error: ${err.message}`)
+    dispatch({
+      type: TASKS_ERROR,
+      payload: `Something went wrong`
+    })
+  }
+}
